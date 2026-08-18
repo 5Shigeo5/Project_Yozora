@@ -1,0 +1,17 @@
+{
+  "name": "project_yozora",
+  "version": "2.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.19.0",
+    "discord.js": "^14.27.0",
+    "dotenv": "^16.6.1"
+  }
+}
