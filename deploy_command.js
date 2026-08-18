@@ -22,18 +22,18 @@ for (const file of commandFiles){
 }
 
 //Set up for HTTP Request to Discord API
-const rest = new REST().setToken(process.env.DISCORD_TOKEN);
+const rest = new REST().setToken(process.env.DISCORD_BOT_TOKEN);
 
 (async() =>{
     try{
         console.log(`Refreshing ${commands.length} commands`);
 
         const data = await rest.put(
-            Routes.applicationCommands(process.env.CLIENT_ID),
+            Routes.applicationCommands(process.env.DISCORD_CLIENT_ID),
             {body: commands},
         );
         
-        console.log(`Refreshed ${data.length} commands`);
+        console.log(`Successfuly Refreshed and Loaded ${data.length} commands`);
     }catch(error){
         console.error(error);
     }
