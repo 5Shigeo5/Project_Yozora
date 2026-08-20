@@ -1,34 +1,39 @@
-import { Events } from "discord.js";
+import { Events, MessageFlags } from "discord.js";
 
 export default{
     name: Events.InteractionCreate,
     async execute(interaction){
-
+        console.log(`Received interaction! Type: ${interaction.type}, isButton: ${interaction.isButton()}, Interaction ID: ${interaction.customId}`);
         /*-------------------------------------
                     SLASH COMMAND
         --------------------------------------*/
-        if (!interaction.isChatInputCommand()) return;
+        if(interaction.isChatInputCommand()){
+            const command = interaction.client.commands.get(interaction.commandName);
 
-        const command = interaction.client.commands.get(interaction.commandName);
-
-        if (!command){
-            console.error(`No command ${interaction.commandName} found`);
-            return
-        }
-
-        try{
-            await command.execute(interaction);
-        } catch(error){
-            console.error(`Error executing ${interaction.commandName}:`, error);
-
-            const errorMessage = {content: 'Error with command execution please check console', ephemeral:true};
-
-            if(interaction.replied || interaction.deferred){
-                await interaction.followUp(errorMessage);
-            }else{
-                await interaction.reply(errorMessage);
+            if (!command){
+                console.error(`No command ${interaction.commandName} found`);
+                return
             }
+
+            try{
+                await command.execute(interaction);
+            } catch(error){
+                console.error(`Error executing ${interaction.commandName}:`, error);
+
+                const errorMessage = {
+                    content: 'Error with command execution please check console',
+                    flags: MessageFlags.Ephemeral
+                    };
+
+                if(interaction.replied || interaction.deferred){
+                    await interaction.followUp(errorMessage);
+                }else{
+                    await interaction.reply(errorMessage);
+                }
+            }
+            return;
         }
+        
 
         /*-------------------------------------
                     BUTTON LOGIC
@@ -40,7 +45,6 @@ export default{
             Update this everytime
             1. verifyMember - Verification Button for the Rules and Verification
             */
-
             switch (interaction.customId){
 
                 case 'verifyMember': {
@@ -50,7 +54,7 @@ export default{
                     if(!role){
                         return interaction.reply({
                             content: 'Error: Role Doesnt Exist, Doublecheck the Role Name and Edit',
-                            ephemeral: true
+                            flags: MessageFlags.Ephemeral
                         });
                     }
 
@@ -59,7 +63,7 @@ export default{
                         if(interaction.member.roles.cache.has(role.id)){
                             return interaction.reply({
                                 content: 'User is already verified',
-                                ephemeral: true
+                                flags: MessageFlags.Ephemeral
                             });
                         }
 
@@ -67,21 +71,21 @@ export default{
                         
                         await interaction.reply({
                             content: 'Thank you for your cooperation, welcome to Node 0101!',
-                            ephemeral:true
+                            flags: MessageFlags.Ephemeral
                         });
 
                     }catch (err){
                         console.error('Verification Failed, Error Code: ', err);
                         await interaction.reply({
                             content: 'Something went wrong please ping Shigeo or the mods',
-                            ephemeral:true  
+                            flags: MessageFlags.Ephemeral  
                         });
                     }
 
                     break;
                 }
 
-                case 'Button Place Holder'{
+                case 'Button Place Holder':{
                     //Feature for next time
                     break;
                 }

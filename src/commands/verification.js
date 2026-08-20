@@ -4,7 +4,8 @@ import {
     EmbedBuilder,
     ActionRowBuilder,
     ButtonBuilder,
-    ButtonStyle 
+    ButtonStyle, 
+    MessageFlags
 } from "discord.js";
 
 
@@ -20,7 +21,7 @@ export default{
         const rulesEmbed = new EmbedBuilder()
                     .setTitle("Node 0101 Verification System")
                     .setDescription(
-                        '**Welcome to Node 0101' +
+                        '**Welcome to Node 0101**' +
                         '\nWelcome to the lounge! Please read the following guidelines and click the check mark to gain access to the whole server!\n' +
                         '\n__DA RULES__\n'+
                         '\n```\nBe Kind\n```\n' +
@@ -58,7 +59,7 @@ export default{
         //Flavor Text that it got deployed
         await interaction.reply({
             content: 'Rules Deployed and Updated',
-            ephemeral:true
+            flags: MessageFlags.Ephemeral
         });
 
     }
