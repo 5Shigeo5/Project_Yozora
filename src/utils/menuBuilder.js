@@ -1,16 +1,14 @@
 
 
 //Embed Builder for Roles, to D.R.Y
-/*
-Parameters:
-- Title - Embed Header
-- Description - message embed content
-- Color - Emebed Color (in hex)
-- Menu ID - custom ID used for the switchcase later
-- optionsArr - roles to put into dropdown
- */
 
-import { ActionRowBuilder, EmbedBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder} from "discord.js";
+
+import { 
+    ActionRowBuilder,
+    EmbedBuilder, 
+    StringSelectMenuBuilder, 
+    StringSelectMenuOptionBuilder
+} from "discord.js";
 
 function embedBuild (title, descrption, color, menuId, optionsArr){
     const embedBase = new EmbedBuilder()
