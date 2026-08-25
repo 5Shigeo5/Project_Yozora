@@ -144,3 +144,6 @@ vite.config.ts.timestamp-*
 
 # VS code files
 .vscode/
+
+#misc
+original_index.js
