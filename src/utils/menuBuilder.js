@@ -10,27 +10,40 @@ import {
     StringSelectMenuOptionBuilder
 } from "discord.js";
 
-function embedBuild (title, descrption, color, menuId, optionsArr){
+export function embedBuild (config){
     const embedBase = new EmbedBuilder()
-                .setTitle(title)
-                .setDescription(descrption)
-                .setColor(color)
+                .setTitle(config.embedTitle)
+                .setDescription(config.embedDesc)
+                .setColor(config.color)
     
     //Selection Option Generation and parsing
-    const generateOptions = optionsArr.map(item => {
-        return new StringSelectMenuOptionBuilder()
+    const generateOptions = config.options.map(item => {
+        const option = new StringSelectMenuOptionBuilder()
             .setLabel(item.label) //Header of Selection
-            .setValue(item.roleName) //customID for each
-            .setDescription(item.desc) //description, usually a subtext
-            .setEmoji(item.emoji) //
+            .setValue(item.value); //customID for each
+            
+            if(item.desc){
+            
+                option.setDescription(item.desc)
+            
+            }
+
+            if(item.emoji){
+
+                option.setEmoji(item.emoji)
+
+            }
+        
+            return option;
+
     })
     //Dropdown
     const selectMenu = new StringSelectMenuBuilder()
-                .setCustomId(menuId)
-                .setPlaceholder('Select a role')
+                .setCustomId(config.customId)
+                .setPlaceholder(config.placeholder)
                 .addOptions(generateOptions)
     
     const row = new ActionRowBuilder().addComponents(selectMenu);
 
-    return {embedBase, row}
+    return {embed: embedBase, row};
 }
