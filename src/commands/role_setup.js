@@ -7,9 +7,6 @@ import {
 
 import { roleMenu } from "../utils/role_config.js";
 import { embedBuild } from "../utils/menuBuilder.js"
-//ACTUAL SLASH COMMAND
-//IF OVER 5 EMBEDS ADJUST LOOP
-
 export default {
 
     data: new SlashCommandBuilder()
@@ -31,15 +28,14 @@ export default {
         const finalRow = [];
         for (const blueprint of blueprints){
         const {embed, row} = embedBuild(blueprint);
-        console.log('Emebed', embed);
-        finalEmbed.push(embed);
-        finalRow.push(row);
+        
+        await interaction.channel.send({
+            embeds: [embed],
+            components: [row]
+            })
+        
         }
 
-        await interaction.channel.send({
-            embeds: finalEmbed,
-            components: finalRow
-        })
     }
 
 }

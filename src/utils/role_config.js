@@ -25,9 +25,9 @@ export const roleMenu = {
     gender:{
         customId: 'genderMenu',
         placeholder:'Select pronouns',
-        embedTitle:'Pronouns',
+        embedTitle:'🗣️ Pronouns',
         embedDesc:'What pronouns do you go by?',
-        color:'#ffffff',
+        color:'#20ffa9',
         minSel:0,
         maxSel:4,
         options:[
@@ -39,10 +39,10 @@ export const roleMenu = {
     },
     region:{
         customId: 'regionMenu',
-        placeholder:'🌐 Select region',
-        embedTitle:'Region',
+        placeholder:'Select region',
+        embedTitle:'🌐 Region',
         embedDesc:'Where are you from',
-        color:'#000000',
+        color:'#20ffa9',
         minSel:0,
         maxSel:1,
         options:[
@@ -58,9 +58,9 @@ export const roleMenu = {
     ping:{
         customId: 'pingMenu',
         placeholder:'Select notifs',
-        embedTitle:'Announcement Pings',
-        embedDesc:'Choose what kind of announcements do you want to be notified by',
-        color:'#0084ff',
+        embedTitle:'🔔 Announcement Pings',
+        embedDesc:'What do you want to be notified for?',
+        color:'#20ffa9',
         minSel:0,
         maxSel:2,
         options:[
@@ -70,10 +70,10 @@ export const roleMenu = {
     },
     misc:{
         customId: 'miscMenu',
-        placeholder:'Extra Roles',
-        embedTitle:'Self Roles',
+        placeholder:'Select Role',
+        embedTitle:'❓ Self Roles',
         embedDesc:'What fits your fancy?',
-        color:'#00ff2a',
+        color:'#20ffa9',
         minSel:0,
         maxSel:3,
         options:[

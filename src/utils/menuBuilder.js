@@ -10,10 +10,12 @@ import {
     StringSelectMenuOptionBuilder
 } from "discord.js";
 
+const padding = '⠀'.repeat(40.5);
+
 export function embedBuild (config){
     const embedBase = new EmbedBuilder()
                 .setTitle(config.embedTitle)
-                .setDescription(config.embedDesc)
+                .setDescription(`${config.embedDesc}\n${padding}`)
                 .setColor(config.color)
     
     //Selection Option Generation and parsing
