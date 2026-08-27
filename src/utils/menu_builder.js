@@ -17,6 +17,7 @@ export function embedBuild (config){
                 .setTitle(config.embedTitle)
                 .setDescription(`${config.embedDesc}\n${padding}`)
                 .setColor(config.color)
+
     
     //Selection Option Generation and parsing
     const generateOptions = config.options.map(item => {
@@ -44,6 +45,8 @@ export function embedBuild (config){
                 .setCustomId(config.customId)
                 .setPlaceholder(config.placeholder)
                 .addOptions(generateOptions)
+                .setMinValues(config.minSel)
+                .setMaxValues(config.maxSel)
     
     const row = new ActionRowBuilder().addComponents(selectMenu);
 

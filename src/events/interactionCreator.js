@@ -1,5 +1,8 @@
 import { Events, MessageFlags } from "discord.js";
 
+import { roleMenu } from "../utils/role_config.js";
+import { buttonHandler } from "../utils/button_config.js";
+
 export default{
     name: Events.InteractionCreate,
     async execute(interaction){
@@ -40,65 +43,63 @@ export default{
         --------------------------------------*/
         if(interaction.isButton()){
             
-            //#####Button ID List#######
-            /*
-            Update this everytime
-            1. verifyMember - Verification Button for the Rules and Verification
-            */
-            switch (interaction.customId){
+            const buttonSel = buttonHandler[interaction.customId];
 
-                case 'verifyMember': {
-
-                    const role = interaction.guild.roles.cache.find(r => r.name == 'Pixelite');
-
-                    if(!role){
-                        return interaction.reply({
-                            content: 'Error: Role Doesnt Exist, Doublecheck the Role Name and Edit',
-                            flags: MessageFlags.Ephemeral
-                        });
-                    }
-
-                    //Checks if a member is verified
-                    try{
-                        if(interaction.member.roles.cache.has(role.id)){
-                            return interaction.reply({
-                                content: 'User is already verified',
-                                flags: MessageFlags.Ephemeral
-                            });
-                        }
-
-                        await interaction.member.roles.add(role);
-                        
-                        await interaction.reply({
-                            content: 'Thank you for your cooperation, welcome to Node 0101!',
-                            flags: MessageFlags.Ephemeral
-                        });
-
-                    }catch (err){
-                        console.error('Verification Failed, Error Code: ', err);
-                        await interaction.reply({
-                            content: 'Something went wrong please ping Shigeo or the mods',
-                            flags: MessageFlags.Ephemeral  
-                        });
-                    }
-
-                    break;
-                }
-
-                case 'Button Place Holder':{
-                    //Feature for next time
-                    break;
-                }
-
-                default: {
-                    console.log(`[WARNING] Unhandled button interaction at ID ${interaction.customId}`);
-                    await interaction.reply({content: 'Feature Pending'});
-                    break;
-                }
-
+            if(buttonSel){
+                await buttonSel(interaction);
+            }else{
+                console.log(`[WARNING] Unhandled button interaction at ID ${interaction.customId}`);
+                await interaction.reply({content: 'Feature Pending'});
             }
+
 
         }
 
+        /*-------------------------------------
+                    DROPDOWN LOGIC
+        --------------------------------------*/
+        if(interaction.isStringSelectMenu()){
+            
+            const selectionChoice = interaction.values; 
+            const roleConfig = Object.values(roleMenu).find(cfg => cfg.customId === interaction.customId);
+
+            if(roleConfig){
+                const catRoleId= roleConfig.options.map(opt => opt.value);
+
+                //Added this to make it less complicated of finding ID number of a role per server
+                //Roles to Remove
+                const roleRemove = catRoleId
+                    .map(name => interaction.guild.roles.cache.find(r => r.name === name))
+                    .filter(role => role !== undefined);
+                //Roles to Add
+                const roleAdd = selectionChoice
+                    .map(name => interaction.guild.roles.cache.find(r => r.name === name))
+                    .filter(role => role !== undefined);
+
+                //Refreshes all roles of the user by removing and addin
+                if(roleRemove.length > 0){
+                    await interaction.member.roles.remove(roleRemove);
+                }
+                if(roleAdd.length > 0){
+                    await interaction.member.roles.add(roleAdd);
+                }
+                
+                await interaction.reply({
+                content: `${roleConfig.embedTitle} Updated!`,
+                flags: MessageFlags.Ephemeral
+                });
+                //Incase something breaks with the embed title
+            } else{
+
+                await interaction.reply({
+                content: 'Roles Updated!',
+                flags: MessageFlags.Ephemeral
+                });
+
+            }
+
+
+
+        }
     }
 };

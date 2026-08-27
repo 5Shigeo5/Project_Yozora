@@ -6,7 +6,7 @@ import {
 } from "discord.js";
 
 import { roleMenu } from "../utils/role_config.js";
-import { embedBuild } from "../utils/menuBuilder.js"
+import { embedBuild } from "../utils/menu_builder.js"
 export default {
 
     data: new SlashCommandBuilder()
