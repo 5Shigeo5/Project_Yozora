@@ -2,6 +2,7 @@ import { Events, MessageFlags } from "discord.js";
 
 import { roleMenu } from "../utils/role_config.js";
 import { buttonHandler } from "../utils/button_config.js";
+import { modalHandler } from "../utils/modal_config.js";
 
 export default{
     name: Events.InteractionCreate,
@@ -100,6 +101,17 @@ export default{
 
 
 
+        }
+
+        /*-------------------------------------
+                    MODAL LOGIC
+        --------------------------------------*/
+        if(interaction.isModalSubmit()){
+            const handler = modalHandler[interaction.customId];
+
+            if (handler){
+                await handler{interaction};
+            }
         }
     }
 };
