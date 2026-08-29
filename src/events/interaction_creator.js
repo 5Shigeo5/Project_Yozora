@@ -110,7 +110,7 @@ export default{
             const handler = modalHandler[interaction.customId];
 
             if (handler){
-                await handler{interaction};
+                await handler(interaction);
             }
         }
     }

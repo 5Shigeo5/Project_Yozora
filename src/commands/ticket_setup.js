@@ -1,12 +1,18 @@
-import { ActionRowBuilder, ButtonBuilder } from "@discordjs/builders";
-import { ButtonStyle, MessageFlags, SlashCommandBuilder } from "discord.js";
+import {
+    EmbedBuilder, 
+    ActionRowBuilder,
+    ButtonBuilder,
+    ButtonStyle,
+    MessageFlags, 
+    SlashCommandBuilder 
+} from "discord.js";
 
 
 //A one time command to set up the support ticket at the current channel
 export default{
     
     data: new SlashCommandBuilder()
-        .setName('ticket_setup')
+        .setName('setup_ticket')
         .setDescription('Initialitizes the ticket embed at the current channel'),
         
         async execute(interaction){
@@ -19,8 +25,8 @@ export default{
                     ' or anything similar please feel free to make a ticket and ' +
                     'a staff will be with you in a timely manner' +
 
-                    '\n**Important Note**' +
-                    '\nThe ticketing system is  for important issues that require staff' +
+                    '\n\n **Important Note** \n' +
+                    'The ticketing system is  for important issues that require staff' +
                     ' intervention, abusing this ticket system will lead to potential kicks' +
                     ' and at worse **BANS**'
                 )
@@ -29,7 +35,7 @@ export default{
             const openTicketButton = new ButtonBuilder()
                 .setCustomId('openTicket')
                 .setLabel('Open a Ticket')
-                .setStyle(ButtonStyle.Success)
+                .setStyle(ButtonStyle.Primary)
                 .setEmoji('🎫')
             
             const row = new ActionRowBuilder().addComponents(openTicketButton);
