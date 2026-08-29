@@ -9,6 +9,8 @@ import {
     /*
     Update this everytime
     1. verifyMember - Verification Button for the Rules and Verification
+    2. openTicket - to open a support ticket (Accessible to anyone)
+    3. closeTicket -  top close a resolved support ticket (Accessible to staff only)
     */
 
 export const buttonHandler = {

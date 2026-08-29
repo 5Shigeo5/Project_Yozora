@@ -8,7 +8,7 @@ import {
     MessageFlags
 } from "discord.js";
 
-
+//Command used to setup the verify user button
 export default{
     data: new SlashCommandBuilder()
     .setName('setup')

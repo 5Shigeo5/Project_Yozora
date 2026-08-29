@@ -7,6 +7,8 @@ import {
 
 import { roleMenu } from "../utils/role_config.js";
 import { embedBuild } from "../utils/menu_builder.js"
+
+//Used for setting up self roles on the specified channel
 export default {
 
     data: new SlashCommandBuilder()
@@ -24,8 +26,6 @@ export default {
         })
 
         const blueprints = Object.values(roleMenu);
-        const finalEmbed = [];
-        const finalRow = [];
         for (const blueprint of blueprints){
         const {embed, row} = embedBuild(blueprint);
         
