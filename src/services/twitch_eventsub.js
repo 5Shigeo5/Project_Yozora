@@ -44,8 +44,7 @@ export async function twitchConnect() {
             const streamData = message.payload.event;
             console.log(`${streamData.broadcaster_user_name} online`);
 
-            //Function for get stream
-            const response  = await fetch('GET https://api.twitch.tv/helix/streams?user_login=5_shigeo_5', {
+            const response  = await fetch(`https://api.twitch.tv/helix/streams?user_id=${process.env.STREAMER_ID}`, {
                 method: 'GET',
                 headers:{
                    'Client-Id': process.env.TWITCH_CLIENT_ID,
