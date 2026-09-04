@@ -13,42 +13,60 @@ import {
 const padding = '⠀'.repeat(40.5);
 
 export function embedBuild (config){
-    const embedBase = new EmbedBuilder()
-                .setTitle(config.embedTitle)
-                .setDescription(`${config.embedDesc}\n${padding}`)
-                .setColor(config.color)
-
     
-    //Selection Option Generation and parsing
-    const generateOptions = config.options.map(item => {
-        const option = new StringSelectMenuOptionBuilder()
-            .setLabel(item.label) //Header of Selection
-            .setValue(item.value); //customID for each
-            
-            if(item.desc){
-            
-                option.setDescription(item.desc)
-            
-            }
+    //Makes it generalized
+    switch(config.embed){
+        case 'DROPDOWN': {
+            const embedBase = new EmbedBuilder()
+                    .setTitle(config.embedTitle)
+                    .setDescription(`${config.embedDesc}\n${padding}`)
+                    .setColor(config.color)
 
-            if(item.emoji){
+            //Selection Option Generation and parsing
+            const generateOptions = config.options.map(item => {
+            const option = new StringSelectMenuOptionBuilder()
+                .setLabel(item.label) //Header of Selection
+                .setValue(item.value); //customID for each
+                
+                if(item.desc){
+                
+                    option.setDescription(item.desc)
+                
+                }
 
-                option.setEmoji(item.emoji)
+                if(item.emoji){
 
-            }
+                    option.setEmoji(item.emoji)
+
+                }
+            
+                return option;
+
+            })
+            //Dropdown
+            const selectMenu = new StringSelectMenuBuilder()
+                    .setCustomId(config.customId)
+                    .setPlaceholder(config.placeholder)
+                    .addOptions(generateOptions)
+                    .setMinValues(config.minSel)
+                    .setMaxValues(config.maxSel)
         
-            return option;
+            const row = new ActionRowBuilder().addComponents(selectMenu);
 
-    })
-    //Dropdown
-    const selectMenu = new StringSelectMenuBuilder()
-                .setCustomId(config.customId)
-                .setPlaceholder(config.placeholder)
-                .addOptions(generateOptions)
-                .setMinValues(config.minSel)
-                .setMaxValues(config.maxSel)
-    
-    const row = new ActionRowBuilder().addComponents(selectMenu);
+            return {embed: embedBase, row};
+        }
 
-    return {embed: embedBase, row};
+        case 'NOTIF': {
+            //Notificaiton type embed here
+        }
+
+        default:{
+            const embedBase = new EmbedBuilder()
+            .setTitle("Default")
+            .setDescription("Lorem Ipsum")
+
+            return {embed: embedBase};
+        }
+    }
+
 }

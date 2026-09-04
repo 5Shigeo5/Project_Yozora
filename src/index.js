@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import {fileURLToPath, pathToFileURL} from 'url';
 import {Client, GatewayIntentBits, Collection} from 'discord.js';
-
+import memberAdd from './events/guild_member_add.js';
 //Get Current Folder Path
 const __filename =  fileURLToPath(import.meta.url);
 const __dirname =  path.dirname(__filename);
@@ -69,6 +69,11 @@ for(const file of commandFiles){
         
     }
 }
+
+//Client On section
+client.on('guildMemberAdd', async (member) =>{
+    await memberAdd.execute(member);
+});
 
 //Start up
 client.login(process.env.DISCORD_BOT_TOKEN);

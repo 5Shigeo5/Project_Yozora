@@ -18,6 +18,9 @@ PARAMETERS
     -value - role name
     -desc - subtext for each role selection (not always required)
     -emoji - emoji to be used
+-embedType - what type of embed
+    - 0 - dropdown
+    - 1 - announcement
 */ 
 
 //Edit here if theres things to change or add
@@ -35,7 +38,8 @@ export const roleMenu = {
             {label: 'He/Him', value:'He/Him', emoji:'🔵'},
             {label: 'They/Them', value:'They/Them', emoji:'🟡'},
             {label: 'Non-Binary/Other', value:'Non-Binary/Other', emoji:'🟢'}
-        ]
+        ],
+        embedType: 'DROPDOWN'
     },
     region:{
         customId: 'regionMenu',
@@ -53,7 +57,8 @@ export const roleMenu = {
             {label: 'Africa', value:'Africa', emoji:'🌍'},
             {label: 'Oceania', value:'Oceania', emoji:'🌏'},
             {label: 'Antarctica', value:'Antarctica', emoji:'❄'}
-        ]
+        ],
+        embedType: 'DROPDOWN'
     },
     ping:{
         customId: 'pingMenu',
@@ -66,7 +71,8 @@ export const roleMenu = {
         options:[
             {label:'Node Status', value:'Node Pings', emoji:'🔊', desc:'Notifies you for any server announcements including stream schedules'},
             {label:'Stream Status', value:'Stream Pings', emoji:'📺', desc:'Notifies you when Im streaming!'},
-        ]
+        ],
+        embedType: 'DROPDOWN'
     },
     misc:{
         customId: 'miscMenu',
@@ -80,6 +86,7 @@ export const roleMenu = {
             {label:'Artist', value:'Artist', emoji:'🎨'},
             {label:'Streamer', value:'Streamer', emoji:'💻'},
             {label:'Gamer', value:'CPG', emoji:'🎮'},
-        ]
+        ],
+        embedType: 'DROPDOWN'
     }
 };
